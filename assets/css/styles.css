@@ -152,13 +152,17 @@ h3 {
 .project-card > p,
 .contact-list a,
 .principles-list span,
-.skills-group li {
+.skill-band-copy,
+.detail-copy,
+.contact-note {
   color: var(--color-text-soft);
 }
 
 .eyebrow,
 .section-label,
-.site-name {
+.site-name,
+.project-kicker,
+.detail-label {
   font-size: var(--font-size-label);
   font-weight: 600;
   line-height: 1.2;
@@ -167,12 +171,14 @@ h3 {
 }
 
 .eyebrow,
-.section-label {
+.section-label,
+.project-kicker,
+.detail-label {
   color: var(--color-text-muted);
 }
 
 .lead {
-  max-width: 38rem;
+  max-width: 40rem;
   font-size: var(--font-size-body-lg);
 }
 
@@ -184,7 +190,8 @@ h3 {
 .site-nav a,
 .site-footer p,
 .contact-list span,
-.meta-list li {
+.meta-list li,
+.hero-facts li {
   color: var(--color-text-muted);
 }
 
@@ -245,7 +252,7 @@ h3 {
 }
 
 .hero-layout {
-  max-width: 50rem;
+  max-width: 52rem;
 }
 
 .hero-actions {
@@ -253,6 +260,14 @@ h3 {
   flex-wrap: wrap;
   gap: 0.9rem 1.1rem;
   margin-top: var(--space-xl);
+}
+
+.hero-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 0.85rem;
+  margin-top: 1.5rem;
+  list-style: none;
 }
 
 .section {
@@ -273,12 +288,23 @@ h3 {
   min-width: 0;
 }
 
+.about-layout {
+  display: grid;
+  gap: 1.25rem;
+}
+
 .prose {
   max-width: var(--content-width);
 }
 
 .prose p + p {
   margin-top: 1rem;
+}
+
+.skills-bands,
+.project-grid {
+  display: grid;
+  gap: 1rem;
 }
 
 /* Components */
@@ -312,52 +338,9 @@ h3 {
     border-color 160ms ease;
 }
 
-.project-grid,
-.skills-grid,
-.contact-list {
-  display: grid;
-  gap: 1rem;
-}
-
-.project-card,
-.skills-group,
-.contact-list li,
-.principles-list li {
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), var(--color-surface));
-  box-shadow: var(--shadow-card);
-}
-
-.project-card,
-.skills-group {
-  padding: 1.5rem;
-}
-
-.contact-list li,
-.principles-list li {
-  padding: 1.35rem 1.5rem;
-}
-
-.project-header {
-  display: grid;
-  gap: 0.45rem;
-}
-
-.project-card > p,
-.project-card > .meta-list,
-.project-card > p:last-child {
-  margin-top: 1rem;
-}
-
-.meta-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  list-style: none;
-}
-
-.meta-list li {
+.hero-facts li,
+.meta-list li,
+.inline-list li {
   padding: 0.38rem 0.7rem;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-pill);
@@ -366,17 +349,94 @@ h3 {
   line-height: 1.2;
 }
 
-.skills-group h3 {
-  max-width: 18ch;
+.project-card,
+.about-panel,
+.skill-band,
+.contact-panel,
+.principles-list li {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), var(--color-surface));
+  box-shadow: var(--shadow-card);
 }
 
-.skills-group ul {
+.project-card,
+.about-panel,
+.skill-band,
+.contact-panel {
+  padding: 1.5rem;
+}
+
+.about-panel h3 {
+  max-width: 14ch;
+}
+
+.stack-list {
+  display: grid;
+  gap: 0.8rem;
   margin-top: 1rem;
   padding-left: 1rem;
 }
 
-.skills-group li + li {
+.project-grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.project-card {
+  display: grid;
+  gap: 1rem;
+}
+
+.project-card-featured {
+  gap: 1.5rem;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(247, 246, 243, 0.98)),
+    var(--color-surface);
+}
+
+.project-copy {
+  display: grid;
+  gap: 1rem;
+}
+
+.project-header {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.project-details {
+  display: grid;
+  gap: 1rem;
+  padding-top: 0.25rem;
+  border-top: 1px solid rgba(219, 217, 210, 0.95);
+}
+
+.detail-copy {
+  max-width: 28rem;
+}
+
+.meta-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   margin-top: 0.55rem;
+  list-style: none;
+}
+
+.skill-band {
+  display: grid;
+  gap: 1rem;
+}
+
+.skill-band-copy {
+  max-width: 42rem;
+}
+
+.inline-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  list-style: none;
 }
 
 .principles-list {
@@ -388,7 +448,7 @@ h3 {
 
 .principles-list li {
   position: relative;
-  padding-left: 4.5rem;
+  padding: 1.35rem 1.5rem 1.35rem 4.5rem;
 }
 
 .principles-list li::before {
@@ -408,13 +468,31 @@ h3 {
   margin-top: 0.45rem;
 }
 
+.contact-panel {
+  display: grid;
+  gap: 1.25rem;
+}
+
 .contact-list {
+  display: grid;
+  gap: 0.9rem;
   list-style: none;
 }
 
 .contact-list li {
   display: grid;
   gap: 0.3rem;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(219, 217, 210, 0.95);
+}
+
+.contact-list li:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.project-link-row {
+  margin-top: 0.25rem;
 }
 
 .site-footer {
@@ -473,16 +551,29 @@ a:focus-visible,
     align-items: start;
   }
 
-  .project-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .about-layout {
+    grid-template-columns: minmax(0, 1.5fr) minmax(16rem, 1fr);
+    align-items: start;
   }
 
-  .skills-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .project-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .project-card-featured {
+    grid-column: 1 / -1;
+    grid-template-columns: minmax(0, 1.5fr) minmax(16rem, 1fr);
+    align-items: start;
   }
 
   .contact-list {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem 1.5rem;
+  }
+
+  .contact-list li {
+    padding: 0;
+    border-top: 0;
   }
 }
 
@@ -496,7 +587,9 @@ a:focus-visible,
   }
 
   .project-card,
-  .skills-group {
+  .about-panel,
+  .skill-band,
+  .contact-panel {
     padding: 1.65rem;
   }
 }
@@ -510,10 +603,11 @@ a:focus-visible,
     padding-top: 4rem;
   }
 
-  .contact-list li,
-  .principles-list li,
   .project-card,
-  .skills-group {
+  .about-panel,
+  .skill-band,
+  .contact-panel,
+  .principles-list li {
     border-radius: var(--radius-md);
   }
 

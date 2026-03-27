@@ -32,9 +32,15 @@
           <p class="eyebrow">QA Engineer / Test Engineer / SDET</p>
           <h1>Building trust in software through pragmatic engineering and quality thinking.</h1>
           <p class="lead">
-            I focus on testability, delivery safety, and calm technical execution across web
-            products, APIs, and automation-heavy workflows.
+            I work at the intersection of testing, delivery, and maintainable engineering — with a
+            strong focus on front-end quality, API behavior, and practical automation.
           </p>
+
+          <ul class="hero-facts" aria-label="Professional summary">
+            <li>8+ years in testing</li>
+            <li>Web and mobile product work</li>
+            <li>Quality engineering mindset</li>
+          </ul>
 
           <div class="hero-actions">
             <a class="button-link" href="#projects">View selected projects</a>
@@ -48,23 +54,34 @@
           <div class="section-heading">
             <p class="section-label">About</p>
             <h2 class="section-title" id="about-title">
-              A quality engineer with product and delivery awareness.
+              A quality engineer with product sense, testing depth, and delivery judgment.
             </h2>
           </div>
 
-          <div class="section-content prose">
-            <p>
-              I work across manual exploration, automation, API verification, and practical release
-              quality. My background combines QA execution with engineering judgment, which means I
-              care not only about finding issues but also about shaping systems that are easier to
-              test, easier to change, and safer to ship.
-            </p>
-            <p>
-              I am especially interested in front-end quality, API behavior, test strategy, and
-              small engineering decisions that improve maintainability over time. This portfolio is
-              intentionally lightweight and static because the implementation should reflect the
-              same discipline as the work it presents.
-            </p>
+          <div class="section-content about-layout">
+            <div class="prose">
+              <p>
+                I work across exploratory testing, automation, API verification, and release
+                quality. My background combines hands-on QA execution with engineering awareness, so
+                I care not only about finding issues, but also about shaping systems that are easier
+                to test, easier to understand, and safer to change.
+              </p>
+              <p>
+                I am especially interested in front-end quality, testability, clear repository
+                structure, and lightweight tooling that produces trustworthy feedback. I value calm,
+                credible execution over feature noise or process theater.
+              </p>
+            </div>
+
+            <aside class="about-panel" aria-labelledby="about-panel-title">
+              <h3 id="about-panel-title">What I bring</h3>
+              <ul class="stack-list">
+                <li>Strong front-end testing awareness</li>
+                <li>Python-based automation and tooling</li>
+                <li>API verification and contract thinking</li>
+                <li>Practical CI and repository hygiene</li>
+              </ul>
+            </aside>
           </div>
         </div>
       </section>
@@ -77,39 +94,57 @@
               Selected work focused on quality, clarity, and delivery fit.
             </h2>
             <p class="section-intro">
-              Three compact portfolio projects that emphasize testing judgment, realistic scope, and
-              public-repo quality.
+              Compact portfolio projects built to show engineering judgment, practical scope, and
+              public-repo quality rather than feature volume.
             </p>
           </div>
 
           <div class="section-content">
             <div class="project-grid">
-              <article class="project-card">
-                <div class="project-header">
-                  <h3>Release Risk Compass</h3>
-                  <p class="project-type">Portfolio web app · Flask · SQLite · Playwright</p>
+              <article class="project-card project-card-featured">
+                <div class="project-copy">
+                  <p class="project-kicker">Featured project</p>
+                  <div class="project-header">
+                    <h3>Release Risk Compass</h3>
+                    <p class="project-type">Portfolio web app · Flask · SQLite · Playwright</p>
+                  </div>
+
+                  <p>
+                    A lightweight release-readiness tool that turns quality signals into a clear,
+                    explainable shipping recommendation. The project is intentionally scoped to feel
+                    like a pragmatic internal product rather than a demo built only to showcase a
+                    stack.
+                  </p>
                 </div>
 
-                <p>
-                  A lightweight release-readiness tool designed to turn quality signals into a
-                  clear, explainable shipping recommendation.
-                </p>
+                <div class="project-details">
+                  <div>
+                    <p class="detail-label">Focus</p>
+                    <ul class="meta-list" aria-label="Release Risk Compass focus">
+                      <li>Risk-based decisions</li>
+                      <li>Pragmatic coverage</li>
+                      <li>Readable CI signal</li>
+                    </ul>
+                  </div>
 
-                <ul class="meta-list" aria-label="Release Risk Compass quality signals">
-                  <li>Pragmatic test layering</li>
-                  <li>Readable CI signal</li>
-                </ul>
+                  <div>
+                    <p class="detail-label">Repository signal</p>
+                    <p class="detail-copy">
+                      Clean structure, practical tests, and product-facing documentation.
+                    </p>
+                  </div>
 
-                <p>
-                  <a
-                    class="text-link"
-                    href="https://github.com/your-github-handle/release-risk-compass"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    GitHub repository
-                  </a>
-                </p>
+                  <p class="project-link-row">
+                    <a
+                      class="text-link"
+                      href="https://github.com/your-github-handle/release-risk-compass"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      View repository
+                    </a>
+                  </p>
+                </div>
               </article>
 
               <article class="project-card">
@@ -119,8 +154,8 @@
                 </div>
 
                 <p>
-                  A small command-line utility for validating API responses against defined
-                  contracts and producing useful failure output.
+                  A focused command-line utility for validating API responses against defined
+                  contracts and producing useful, readable failure output.
                 </p>
 
                 <ul class="meta-list" aria-label="API Response Validator quality signals">
@@ -128,14 +163,14 @@
                   <li>Lean automation workflow</li>
                 </ul>
 
-                <p>
+                <p class="project-link-row">
                   <a
                     class="text-link"
                     href="https://github.com/your-github-handle/api-response-validator"
                     target="_blank"
                     rel="noreferrer"
                   >
-                    GitHub repository
+                    View repository
                   </a>
                 </p>
               </article>
@@ -147,8 +182,8 @@
                 </div>
 
                 <p>
-                  A focused backend-style exercise showing how rollout logic, feature flags, and
-                  audit thinking can be expressed in a simple quality-driven service.
+                  A small service showing how feature flags, rollout logic, and audit awareness can
+                  be modeled in a quality-driven backend exercise.
                 </p>
 
                 <ul class="meta-list" aria-label="Feature Flag Release Gate quality signals">
@@ -156,14 +191,14 @@
                   <li>Reviewable repository structure</li>
                 </ul>
 
-                <p>
+                <p class="project-link-row">
                   <a
                     class="text-link"
                     href="https://github.com/your-github-handle/feature-flag-release-gate"
                     target="_blank"
                     rel="noreferrer"
                   >
-                    GitHub repository
+                    View repository
                   </a>
                 </p>
               </article>
@@ -182,34 +217,46 @@
           </div>
 
           <div class="section-content">
-            <div class="skills-grid">
-              <section class="skills-group" aria-labelledby="skills-testing-title">
-                <h3 id="skills-testing-title">Testing and quality</h3>
-                <ul>
+            <div class="skills-bands">
+              <section class="skill-band" aria-labelledby="skills-testing-title">
+                <h3 id="skills-testing-title">Testing and verification</h3>
+                <p class="skill-band-copy">
+                  Risk-based coverage, exploratory depth, and a bias toward useful feedback rather
+                  than mechanical checkbox execution.
+                </p>
+                <ul class="inline-list">
                   <li>Exploratory testing</li>
-                  <li>UI and API verification</li>
+                  <li>UI verification</li>
+                  <li>API testing</li>
                   <li>Regression strategy</li>
-                  <li>Risk-based coverage</li>
                 </ul>
               </section>
 
-              <section class="skills-group" aria-labelledby="skills-automation-title">
+              <section class="skill-band" aria-labelledby="skills-automation-title">
                 <h3 id="skills-automation-title">Automation and tooling</h3>
-                <ul>
+                <p class="skill-band-copy">
+                  Lightweight automation and tooling choices that stay readable, maintainable, and
+                  proportionate to project scope.
+                </p>
+                <ul class="inline-list">
                   <li>Python</li>
                   <li>Playwright</li>
-                  <li>Postman and Newman</li>
+                  <li>Postman / Newman</li>
                   <li>GitHub Actions</li>
                 </ul>
               </section>
 
-              <section class="skills-group" aria-labelledby="skills-delivery-title">
+              <section class="skill-band" aria-labelledby="skills-delivery-title">
                 <h3 id="skills-delivery-title">Delivery and collaboration</h3>
-                <ul>
-                  <li>Agile delivery support</li>
-                  <li>Release communication</li>
+                <p class="skill-band-copy">
+                  Engineering communication that supports releases, clarifies trade-offs, and keeps
+                  quality connected to product reality.
+                </p>
+                <ul class="inline-list">
+                  <li>Release support</li>
                   <li>Testability feedback</li>
                   <li>Repository hygiene</li>
+                  <li>Agile team work</li>
                 </ul>
               </section>
             </div>
@@ -222,13 +269,16 @@
           <div class="section-heading">
             <p class="section-label">Approach</p>
             <h2 class="section-title" id="approach-title">How I think about software quality.</h2>
+            <p class="section-intro">
+              Quality work is most useful when it improves decisions, not only documentation.
+            </p>
           </div>
 
           <div class="section-content">
             <ol class="principles-list">
               <li>
                 <strong>Start with risk, not ceremony.</strong>
-                <span>Testing should clarify the real failure modes before it adds process.</span>
+                <span>Testing should clarify real failure modes before it adds process.</span>
               </li>
               <li>
                 <strong>Favor maintainable systems.</strong>
@@ -245,10 +295,7 @@
               </li>
               <li>
                 <strong>Communicate clearly.</strong>
-                <span
-                  >Quality becomes useful when findings, trade-offs, and release decisions are easy
-                  to understand.</span
-                >
+                <span>Findings, trade-offs, and release decisions should be easy to act on.</span>
               </li>
             </ol>
           </div>
@@ -263,33 +310,41 @@
               Open to thoughtful engineering conversations.
             </h2>
             <p class="section-intro">
-              The links below are intentionally easy to replace before publishing the final version.
+              Available for discussions around QA, test automation, front-end quality, and
+              engineering-minded portfolio work.
             </p>
           </div>
 
           <div class="section-content">
-            <ul class="contact-list">
-              <li>
-                <span>Email</span>
-                <a href="mailto:your.name@example.com">your.name@example.com</a>
-              </li>
-              <li>
-                <span>GitHub</span>
-                <a href="https://github.com/your-github-handle" target="_blank" rel="noreferrer">
-                  github.com/your-github-handle
-                </a>
-              </li>
-              <li>
-                <span>LinkedIn</span>
-                <a
-                  href="https://www.linkedin.com/in/your-linkedin-handle"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  linkedin.com/in/your-linkedin-handle
-                </a>
-              </li>
-            </ul>
+            <div class="contact-panel">
+              <p class="contact-note">
+                The identity links below are placeholders for now and should be replaced before the
+                final publish pass.
+              </p>
+
+              <ul class="contact-list">
+                <li>
+                  <span>Email</span>
+                  <a href="mailto:your.name@example.com">your.name@example.com</a>
+                </li>
+                <li>
+                  <span>GitHub</span>
+                  <a href="https://github.com/your-github-handle" target="_blank" rel="noreferrer">
+                    github.com/your-github-handle
+                  </a>
+                </li>
+                <li>
+                  <span>LinkedIn</span>
+                  <a
+                    href="https://www.linkedin.com/in/your-linkedin-handle"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    linkedin.com/in/your-linkedin-handle
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
