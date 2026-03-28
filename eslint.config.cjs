@@ -3,25 +3,10 @@ const globals = require('globals');
 
 module.exports = [
   {
-    ignores: ['node_modules/**']
+    ignores: ['node_modules/**', 'playwright-report/**', 'test-results/**']
   },
   js.configs.recommended,
-  // frontend code
-  {
-    files: ['assets/js/**/*.js'],
-    languageOptions: {
-      ecmaVersion: 2022,
-      sourceType: 'script',
-      globals: {
-        ...globals.browser,
-        ...globals.es2022
-      }
-    },
-    rules: {
-      'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }]
-    }
-  },
-  // playwright code
+  // playwright and node scripts only (zero front-end JS)
   {
     files: ['*.js', '*.cjs', 'tests/**/*.js'],
     languageOptions: {

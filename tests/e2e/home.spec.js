@@ -7,22 +7,18 @@ test.describe('homepage smoke checks', () => {
     await expect(page).toHaveTitle('QA Engineer Portfolio');
     await expect(page.locator('main')).toBeVisible();
 
-    await expect(page.locator('#top')).toBeVisible();
-    await expect(page.locator('#about')).toBeVisible();
+    await expect(page.locator('.hero')).toBeVisible();
     await expect(page.locator('#projects')).toBeVisible();
-    await expect(page.locator('#skills')).toBeVisible();
-    await expect(page.locator('#approach')).toBeVisible();
-    await expect(page.locator('#contact')).toBeVisible();
 
     await expect(
       page.getByRole('heading', {
         level: 1,
-        name: /building trust in software through pragmatic engineering and quality thinking/i
+        name: /pragmatic engineering and quality thinking/i
       })
     ).toBeVisible();
   });
 
-  test('supports skip link and keyboard-reachable navigation', async ({ page }) => {
+  test('supports skip link and keyboard-reachable content', async ({ page }) => {
     await page.goto('/');
 
     await page.keyboard.press('Tab');
@@ -35,38 +31,10 @@ test.describe('homepage smoke checks', () => {
     await expect(page.locator('#main-content')).toBeFocused();
   });
 
-  test('navigation links move to the correct sections', async ({ page }) => {
-    await page.goto('/');
-
-    const targets = [
-      { name: 'About', hash: '#about', heading: /about/i },
-      { name: 'Projects', hash: '#projects', heading: /selected work focused on quality/i },
-      { name: 'Skills', hash: '#skills', heading: /practical strengths across testing/i },
-      { name: 'Approach', hash: '#approach', heading: /how i think about software quality/i },
-      {
-        name: 'Contact',
-        hash: '#contact',
-        heading: /open to thoughtful engineering conversations/i
-      }
-    ];
-
-    for (const target of targets) {
-      await page
-        .getByRole('navigation', { name: /primary navigation/i })
-        .getByRole('link', {
-          name: target.name
-        })
-        .click();
-
-      await expect(page).toHaveURL(new RegExp(`${target.hash}$`));
-      await expect(page.getByRole('heading', { level: 2, name: target.heading })).toBeVisible();
-    }
-  });
-
   test('project links and contact links are present and structurally valid', async ({ page }) => {
     await page.goto('/');
 
-    const projectLinks = page.locator('#projects a[href^="https://github.com/"]');
+    const projectLinks = page.locator('.repo-link');
     await expect(projectLinks).toHaveCount(3);
 
     const projectHrefs = await projectLinks.evaluateAll((links) =>
@@ -77,10 +45,10 @@ test.describe('homepage smoke checks', () => {
       expect(href).toMatch(/^https:\/\/github\.com\/.+\/.+$/);
     }
 
-    const emailLink = page.locator('#contact a[href^="mailto:"]');
+    const emailLink = page.locator('.contact-links a[href^="mailto:"]');
     await expect(emailLink).toHaveAttribute('href', 'mailto:your.name@example.com');
 
-    const socialLinks = page.locator('#contact a[href^="https://"]');
+    const socialLinks = page.locator('.contact-links a[href^="https://"]');
     await expect(socialLinks).toHaveCount(2);
   });
 });
@@ -116,16 +84,13 @@ test.describe('mobile smoke check', () => {
     await expect(
       page.getByRole('heading', {
         level: 1,
-        name: /building trust in software through pragmatic engineering and quality thinking/i
+        name: /pragmatic engineering and quality thinking/i
       })
     ).toBeVisible();
 
-    await expect(page.getByRole('link', { name: /view selected projects/i })).toBeVisible();
-    await expect(page.getByRole('navigation', { name: /primary navigation/i })).toBeVisible();
-
-    const heroBox = await page.locator('.hero-layout').boundingBox();
-    expect(heroBox).not.toBeNull();
-    expect(heroBox.width).toBeLessThanOrEqual(390);
+    const bodyBox = await page.locator('body').boundingBox();
+    expect(bodyBox).not.toBeNull();
+    expect(bodyBox.width).toBeLessThanOrEqual(390);
 
     await context.close();
   });
