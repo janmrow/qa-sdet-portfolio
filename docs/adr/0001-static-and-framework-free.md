@@ -1,4 +1,4 @@
-# ADR 0001: Keep the portfolio static and framework-free
+# ADR 0001: Keep the portfolio static and Zero-JS
 
 ## Status
 
@@ -11,40 +11,38 @@ The project is a small personal portfolio intended for GitHub Pages.
 The main delivery goals are:
 
 - low complexity
-- easy maintenance
-- fast load
+- zero maintenance burden
+- instant load times
 - public repository clarity
-- good engineering signal without stack inflation
+- strong engineering signal without stack inflation
 
-A front-end framework or build-heavy setup would add ceremony without solving an actual project problem.
+A front-end framework or build-heavy setup would add ceremony without solving an actual project problem. Furthermore, dynamic UI elements (like scroll-spies or complex mobile menus) distract from the core content, which is primarily text-based and informational.
 
 ## Decision
 
-The portfolio will be implemented as a static site using:
+The portfolio will be implemented as a purely static site using:
 
 - semantic HTML
 - hand-written CSS
-- minimal vanilla JavaScript
-- lightweight local tooling only
-
-JavaScript is allowed only as progressive enhancement. The site must remain fully usable without it.
+- zero client-side JavaScript
+- lightweight local tooling only (for tests and formatting)
 
 ## Consequences
 
 ### Positive
 
-- simpler repository
-- easier manual editing
-- lower maintenance cost
-- GitHub Pages-friendly deployment
-- stronger signal of judgment and proportion
+- absolute minimum repository complexity
+- perfectly predictable performance
+- zero client-side security attack surface
+- GitHub Pages-friendly deployment with no build step
+- strong signal of pragmatic engineering judgment
 
 ### Negative
 
 - less abstraction for reusable UI patterns
-- no framework ecosystem conveniences
-- manual discipline required for CSS and content structure
+- manual discipline required for CSS and HTML structure
+- no dynamic interactivity (which is deemed acceptable for a document-style portfolio)
 
 ## Rationale
 
-For this project, simplicity is not a limitation. It is the intended architecture.
+For this project, extreme simplicity is not a limitation. It is the intended architecture. By relying solely on browser-native HTML and CSS behavior, we ensure maximum longevity and resilience of the code.

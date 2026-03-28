@@ -1,42 +1,36 @@
 # QA Engineer Portfolio
 
-A lightweight, static portfolio website for a QA Engineer / Test Engineer / SDET profile.
+A brutally lightweight, static portfolio website for a QA Engineer / Test Engineer / SDET profile.
 
-The project is intentionally small and framework-free. The goal is not to maximize features, but to communicate engineering judgment, quality thinking, and delivery discipline through both the site itself and the repository around it.
+The project is intentionally small, framework-free, and contains **zero client-side JavaScript**. The goal is not to maximize features, but to communicate engineering judgment, quality thinking, and delivery discipline through both the site itself and the repository around it.
 
 ## Why this project exists
 
 This repository is designed to signal a few things clearly:
 
-- calm, modern visual execution
-- semantic HTML and readable hand-written CSS
-- minimal JavaScript used only for progressive enhancement
-- lightweight quality tooling
+- high signal-to-noise ratio in communication
+- semantic HTML and readable, hand-written CSS
+- absolute zero client-side JavaScript overhead
+- lightweight quality tooling (ESLint, Prettier)
 - practical smoke coverage with Playwright
 - GitHub Pages-friendly delivery with minimal deployment complexity
 
 ## Stack
 
 - HTML5
-- CSS3
-- Vanilla JavaScript
+- CSS3 (Vanilla, CSS Variables)
 - npm for local tooling
-- Prettier
-- ESLint
+- Prettier & ESLint (for config and test files)
 - Playwright
 - GitHub Actions
 - GitHub Pages
 
-## Site sections
+## Site structure
 
-The portfolio is a one-page static site with these sections:
+The portfolio is a single-column static site stripped down to the essentials:
 
-- Hero
-- About
-- Projects
-- Skills
-- Approach
-- Contact
+- Hero (Introduction & Contact)
+- Selected Projects (with inline tech stacks)
 - Footer
 
 The repository also includes:
@@ -55,13 +49,11 @@ The repository also includes:
 ├── assets
 │   ├── css
 │   │   └── styles.css
-│   ├── icons
-│   │   └── favicon.svg
-│   └── js
-│       └── main.js
+│   └── icons
+│       └── favicon.svg
 ├── docs
 │   └── adr
-│       └── 0001-static-and-framework-free.md
+│       └── 0001-static-and-zero-js.md
 ├── tests
 │   └── e2e
 │       └── home.spec.js
@@ -72,7 +64,7 @@ The repository also includes:
 ├── .editorconfig
 ├── .gitignore
 ├── .prettierrc
-├── eslint.config.js
+├── eslint.config.cjs
 ├── index.html
 ├── package.json
 ├── package-lock.json
@@ -95,11 +87,7 @@ Run a local static server:
 npm run serve
 ```
 
-Open:
-
-```text
-http://localhost:4173
-```
+Open `http://localhost:4173` in your browser.
 
 ## Quality checks
 
@@ -115,25 +103,16 @@ Run only Playwright smoke tests:
 npm run test:e2e
 ```
 
-Run Playwright in headed mode:
-
-```bash
-npm run test:e2e:headed
-```
-
 ## What the smoke tests cover
 
 The Playwright suite keeps coverage intentionally lean. It checks:
 
-- homepage load
-- document title
-- core sections presence
-- hero rendering
+- homepage load and title
+- core sections visibility
 - keyboard access to the skip link
-- navigation anchor behavior
-- project link structure
-- contact links
-- custom `404.html`
+- project link structure and external routing
+- contact link formats (mailto, https)
+- custom `404.html` presence and routing
 - narrow mobile viewport sanity
 
 ## Deployment
@@ -148,44 +127,24 @@ Deployment flow:
 
 No production build step is required.
 
-## Content placeholders
-
-This repository currently includes intentional placeholder values for:
-
-- email address
-- GitHub profile handle
-- LinkedIn profile handle
-- project repository links
-
-These should be replaced before the final public publishing pass.
-
 ## Design direction
 
-The visual system is intentionally restrained:
+The visual system is pragmatic and engineering-focused:
 
-- neutral palette
-- typography-led hierarchy
-- spacing-led polish
-- subtle borders
-- minimal shadow use
-- no framework styling
-- no decorative noise
+- single-column layout for high readability
+- stark contrast with subtle borders
+- monospace typography for technical accents and metadata
+- no shadows, gradients, or decorative noise
 
 ## Notes on scope
 
 This project deliberately does **not** include:
 
 - React or any front-end framework
+- client-side JavaScript
 - CMS features
-- blog functionality
 - backend contact form
 - heavy animation
 - design-system over-abstraction
-- visual regression tooling
-- test theater
 
 The intent is proportion, clarity, and maintainability.
-
-## License
-
-This project is provided as a portfolio example. Add a license if you want to publish reuse terms explicitly.
