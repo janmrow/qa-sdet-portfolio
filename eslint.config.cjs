@@ -6,6 +6,7 @@ module.exports = [
     ignores: ['node_modules/**']
   },
   js.configs.recommended,
+  // frontend code
   {
     files: ['assets/js/**/*.js'],
     languageOptions: {
@@ -18,6 +19,18 @@ module.exports = [
     },
     rules: {
       'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }]
+    }
+  },
+  // playwright code
+  {
+    files: ['*.js', '*.cjs', 'tests/**/*.js'],
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: 'commonjs',
+      globals: {
+        ...globals.node,
+        ...globals.es2022
+      }
     }
   }
 ];
