@@ -2,12 +2,12 @@
    Tokens
    ========================================================================== */
 :root {
-  --color-bg: #ffffff;
-  --color-text: #111111;
-  --color-text-muted: #555555;
-  --color-border: #e0e0e0;
+  --color-bg: #fdfdfc;
+  --color-text: #171717;
+  --color-text-muted: #666666;
+  --color-border: #e5e5e5;
   --color-accent: #000000;
-  --color-surface: #f9f9f9;
+  --color-surface: #ffffff;
 
   --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono:
@@ -91,13 +91,14 @@ h2,
 h3 {
   font-weight: 600;
   line-height: 1.2;
-  letter-spacing: -0.02em;
 }
 
 h1 {
   font-size: clamp(2rem, 5vw, 2.75rem);
   margin-bottom: var(--space-md);
   max-width: 18ch;
+  letter-spacing: -0.04em;
+  color: var(--color-accent);
 }
 
 h2 {
@@ -105,13 +106,14 @@ h2 {
   padding-bottom: var(--space-xs);
   border-bottom: 1px solid var(--color-border);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   font-size: 0.85rem;
   color: var(--color-text-muted);
 }
 
 h3 {
   font-size: 1.125rem;
+  letter-spacing: -0.02em;
 }
 
 .lead {
@@ -127,7 +129,7 @@ h3 {
   text-transform: uppercase;
   color: var(--color-text-muted);
   margin-bottom: var(--space-sm);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
 }
 
 /* ==========================================================================
@@ -144,16 +146,16 @@ h3 {
 
 .contact-links a {
   padding-bottom: 2px;
-  border-bottom: 1px solid var(--color-border);
-  transition:
-    border-color 0.2s ease,
-    color 0.2s ease;
+  border-bottom: 1px dashed var(--color-border);
+  color: var(--color-text-muted);
+  transition: all 0.2s ease;
 }
 
 .contact-links a:hover,
 .contact-links a:focus-visible {
   color: var(--color-accent);
-  border-color: var(--color-accent);
+  border-bottom-style: solid;
+  border-bottom-color: var(--color-accent);
 }
 
 /* Projects */
@@ -175,20 +177,19 @@ h3 {
   gap: 0.5rem;
 }
 
+/* Repo Link */
 .repo-link {
   font-family: var(--font-mono);
   font-size: 0.85rem;
   color: var(--color-text-muted);
-  border-bottom: 1px solid transparent;
-  transition:
-    color 0.2s ease,
-    border-color 0.2s ease;
+  border-bottom: 1px dashed transparent;
+  transition: all 0.2s ease;
 }
 
 .repo-link:hover,
 .repo-link:focus-visible {
   color: var(--color-accent);
-  border-color: var(--color-accent);
+  border-bottom: 1px dashed var(--color-accent);
 }
 
 .project-item p {
@@ -211,8 +212,16 @@ h3 {
   padding: 0.2rem 0.5rem;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: 2px; /* Ostry, inżynierski detal zamiast okrągłych pigułek */
+  border-radius: 3px;
   color: var(--color-text-muted);
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.tech-tags li:hover {
+  border-color: #cccccc;
+  color: var(--color-accent);
 }
 
 /* Footer */
