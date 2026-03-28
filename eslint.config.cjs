@@ -5,8 +5,10 @@ module.exports = [
   {
     ignores: ['node_modules/**', 'playwright-report/**', 'test-results/**']
   },
+
   js.configs.recommended,
-  // playwright and node scripts only (zero front-end JS)
+
+  // base config: Node + ES2022 (no browser by default)
   {
     files: ['*.js', '*.cjs', 'tests/**/*.js'],
     languageOptions: {
@@ -15,6 +17,16 @@ module.exports = [
       globals: {
         ...globals.node,
         ...globals.es2022
+      }
+    }
+  },
+
+  // Playwright tests run browser code inside page.evaluate()
+  {
+    files: ['tests/**/*.js'],
+    languageOptions: {
+      globals: {
+        ...globals.browser
       }
     }
   }

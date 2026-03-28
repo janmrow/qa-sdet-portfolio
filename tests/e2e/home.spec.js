@@ -3,17 +3,25 @@ const { test, expect } = require('@playwright/test');
 test.describe('homepage smoke checks', () => {
   test('loads completely without any console errors or network failures', async ({ page }) => {
     const consoleErrors = [];
+    const requestFailures = [];
+
     page.on('console', (msg) => {
       if (msg.type() === 'error') consoleErrors.push(msg.text());
     });
+
     page.on('pageerror', (exception) => {
       consoleErrors.push(exception.message);
+    });
+
+    page.on('requestfailed', (request) => {
+      requestFailures.push(`${request.method()} ${request.url()}`);
     });
 
     const response = await page.goto('/');
 
     expect(response.status()).toBe(200);
     expect(consoleErrors).toHaveLength(0);
+    expect(requestFailures).toHaveLength(0);
   });
 
   test('contains essential SEO and Open Graph meta tags', async ({ page }) => {
@@ -64,6 +72,19 @@ test.describe('homepage smoke checks', () => {
 
     const decorativeArrows = page.locator('.repo-link span[aria-hidden="true"]');
     await expect(decorativeArrows).toHaveCount(3);
+
+    await expect(projectLinks.nth(0)).toHaveAttribute(
+      'aria-label',
+      'View Release Risk Compass repository'
+    );
+    await expect(projectLinks.nth(1)).toHaveAttribute(
+      'aria-label',
+      'View API Response Validator repository'
+    );
+    await expect(projectLinks.nth(2)).toHaveAttribute(
+      'aria-label',
+      'View Feature Flag Release Gate repository'
+    );
   });
 
   test('contact links use correct URI schemes', async ({ page }) => {
@@ -74,6 +95,27 @@ test.describe('homepage smoke checks', () => {
 
     const socialLinks = page.locator('.contact-links a[href^="https://"]');
     await expect(socialLinks).toHaveCount(2);
+  });
+
+  test('external links opened in new tabs use safe rel attributes', async ({ page }) => {
+    await page.goto('/');
+
+    const externalLinks = page.locator('a[target="_blank"]');
+    await expect(externalLinks).toHaveCount(5);
+
+    const relValues = await externalLinks.evaluateAll((links) =>
+      links.map((link) => link.getAttribute('rel'))
+    );
+
+    for (const rel of relValues) {
+      expect(rel).toBe('noopener noreferrer');
+    }
+  });
+
+  test('homepage uses a single h1 heading', async ({ page }) => {
+    await page.goto('/');
+
+    await expect(page.locator('h1')).toHaveCount(1);
   });
 });
 
@@ -94,6 +136,19 @@ test.describe('404 page', () => {
       './index.html'
     );
   });
+
+  test('loads stylesheet and favicon references on the 404 page', async ({ page }) => {
+    await page.goto('/404.html');
+
+    await expect(page.locator('link[rel="stylesheet"]')).toHaveAttribute(
+      'href',
+      './assets/css/styles.css'
+    );
+    await expect(page.locator('link[rel="icon"]')).toHaveAttribute(
+      'href',
+      './assets/icons/favicon.svg'
+    );
+  });
 });
 
 test.describe('mobile smoke check', () => {
@@ -112,9 +167,11 @@ test.describe('mobile smoke check', () => {
       })
     ).toBeVisible();
 
-    const bodyBox = await page.locator('body').boundingBox();
-    expect(bodyBox).not.toBeNull();
-    expect(bodyBox.width).toBeLessThanOrEqual(390);
+    const hasHorizontalOverflow = await page.evaluate(() => {
+      return document.documentElement.scrollWidth > window.innerWidth;
+    });
+
+    expect(hasHorizontalOverflow).toBe(false);
 
     await context.close();
   });
