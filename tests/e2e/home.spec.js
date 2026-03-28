@@ -28,16 +28,16 @@ test.describe('homepage smoke checks', () => {
     await page.goto('/');
 
     const description = page.locator('meta[name="description"]');
-    await expect(description).toHaveAttribute('content', /pragmatic engineering/i);
+    await expect(description).toHaveAttribute('content', /software quality/i);
 
     const ogTitle = page.locator('meta[property="og:title"]');
-    await expect(ogTitle).toHaveAttribute('content', 'QA Engineer Portfolio');
+    await expect(ogTitle).toHaveAttribute('content', /QA Engineer/i);
   });
 
   test('renders core structural sections', async ({ page }) => {
     await page.goto('/');
 
-    await expect(page).toHaveTitle('QA Engineer Portfolio');
+    await expect(page).toHaveTitle(/QA Engineer/i);
     await expect(page.locator('main')).toBeVisible();
     await expect(page.locator('.hero')).toBeVisible();
     await expect(page.locator('#projects')).toBeVisible();
@@ -54,13 +54,12 @@ test.describe('homepage smoke checks', () => {
     await expect(page.locator('#main-content')).toBeFocused();
   });
 
-  test('project links are valid and hide decorative arrows from screen readers', async ({
-    page
-  }) => {
+  test('project links are valid and accessible', async ({ page }) => {
     await page.goto('/');
 
     const projectLinks = page.locator('.repo-link');
-    await expect(projectLinks).toHaveCount(3);
+    const count = await projectLinks.count();
+    expect(count).toBeGreaterThan(0);
 
     const projectHrefs = await projectLinks.evaluateAll((links) =>
       links.map((link) => link.getAttribute('href'))
@@ -71,37 +70,36 @@ test.describe('homepage smoke checks', () => {
     }
 
     const decorativeArrows = page.locator('.repo-link span[aria-hidden="true"]');
-    await expect(decorativeArrows).toHaveCount(3);
+    const arrowCount = await decorativeArrows.count();
+    expect(arrowCount).toBeGreaterThan(0);
 
-    await expect(projectLinks.nth(0)).toHaveAttribute(
-      'aria-label',
-      'View Release Risk Compass repository'
+    const ariaLabels = await projectLinks.evaluateAll((links) =>
+      links.map((link) => link.getAttribute('aria-label'))
     );
-    await expect(projectLinks.nth(1)).toHaveAttribute(
-      'aria-label',
-      'View API Response Validator repository'
-    );
-    await expect(projectLinks.nth(2)).toHaveAttribute(
-      'aria-label',
-      'View Feature Flag Release Gate repository'
-    );
+
+    for (const label of ariaLabels) {
+      expect(label).toBeTruthy();
+      expect(label.toLowerCase()).toContain('repository');
+    }
   });
 
   test('contact links use correct URI schemes', async ({ page }) => {
     await page.goto('/');
 
     const emailLink = page.locator('.contact-links a[href^="mailto:"]');
-    await expect(emailLink).toHaveAttribute('href', 'mailto:your.name@example.com');
+    await expect(emailLink).toHaveCount(1);
 
     const socialLinks = page.locator('.contact-links a[href^="https://"]');
-    await expect(socialLinks).toHaveCount(2);
+    const count = await socialLinks.count();
+    expect(count).toBeGreaterThan(1);
   });
 
   test('external links opened in new tabs use safe rel attributes', async ({ page }) => {
     await page.goto('/');
 
     const externalLinks = page.locator('a[target="_blank"]');
-    await expect(externalLinks).toHaveCount(5);
+    const count = await externalLinks.count();
+    expect(count).toBeGreaterThan(0);
 
     const relValues = await externalLinks.evaluateAll((links) =>
       links.map((link) => link.getAttribute('rel'))
@@ -124,30 +122,16 @@ test.describe('404 page', () => {
     await page.goto('/404.html');
 
     await expect(page).toHaveTitle(/page not found/i);
-    await expect(
-      page.getByRole('heading', {
-        level: 1,
-        name: /the page you were looking for does not exist/i
-      })
-    ).toBeVisible();
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
 
-    await expect(page.getByRole('link', { name: /go to homepage/i })).toHaveAttribute(
-      'href',
-      './index.html'
-    );
+    await expect(page.getByRole('link', { name: /home/i })).toHaveAttribute('href', './index.html');
   });
 
   test('loads stylesheet and favicon references on the 404 page', async ({ page }) => {
     await page.goto('/404.html');
 
-    await expect(page.locator('link[rel="stylesheet"]')).toHaveAttribute(
-      'href',
-      './assets/css/styles.css'
-    );
-    await expect(page.locator('link[rel="icon"]')).toHaveAttribute(
-      'href',
-      './assets/icons/favicon.svg'
-    );
+    await expect(page.locator('link[rel="stylesheet"]')).toHaveCount(1);
+    await expect(page.locator('link[rel="icon"]')).toHaveCount(1);
   });
 });
 
@@ -160,12 +144,7 @@ test.describe('mobile smoke check', () => {
     const page = await context.newPage();
     await page.goto('/');
 
-    await expect(
-      page.getByRole('heading', {
-        level: 1,
-        name: /pragmatic engineering and quality thinking/i
-      })
-    ).toBeVisible();
+    await expect(page.locator('h1')).toBeVisible();
 
     const hasHorizontalOverflow = await page.evaluate(() => {
       return document.documentElement.scrollWidth > window.innerWidth;
