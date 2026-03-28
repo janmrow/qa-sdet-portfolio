@@ -1,8 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
-  <title>QA Engineer Portfolio favicon</title>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 64 64"
+  role="img"
+  aria-labelledby="faviconTitle"
+>
+  <title id="faviconTitle">Terminal Icon - QA Portfolio</title>
+
   <rect width="64" height="64" rx="14" fill="#171717" />
-  <path
-    d="M18 20.5h16.2c7.4 0 12 4.1 12 10.3 0 4.6-2.6 7.9-7 9.3l8.3 13.4H38l-7.1-11.8h-4.6v11.8H18V20.5Zm8.3 14.5h6.5c3.4 0 5.1-1.4 5.1-4s-1.7-4-5.1-4h-6.5v8Z"
-    fill="#fcfcfa"
-  />
+
+  <g transform="translate(14, 14) scale(1.5)">
+    <path
+      d="M5.243 7.071l-4.95-4.95A1 1 0 1 1 1.707.707l5.657 5.657a1 1 0 0 1 0 1.414l-5.657 5.657a1 1 0 0 1-1.414-1.414l4.95-4.95z M6.929 12h8a1 1 0 0 1 0 2h-8a1 1 0 0 1 0-2z"
+      fill="#fcfcfa"
+    />
+  </g>
 </svg>
