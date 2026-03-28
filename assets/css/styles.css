@@ -316,7 +316,22 @@ h3 {
   transition:
     color 160ms ease,
     border-color 160ms ease,
-    background-color 160ms ease;
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.site-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-pill);
+}
+
+.js .site-nav a[aria-current='location'] {
+  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: inset 0 0 0 1px rgba(200, 197, 189, 0.9);
 }
 
 .button-link {
@@ -517,6 +532,11 @@ h3 {
 .contact-list a:hover,
 .contact-list a:focus-visible {
   color: var(--color-text);
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  background: rgba(255, 255, 255, 0.74);
 }
 
 .button-link:hover,
