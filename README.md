@@ -107,13 +107,15 @@ npm run test:e2e
 
 The Playwright suite keeps coverage intentionally lean. It checks:
 
-- homepage load and title
+- homepage load, title, and absence of console or failed-request errors
+- essential SEO and Open Graph meta tags
 - core sections visibility
 - keyboard access to the skip link
-- project link structure and external routing
-- contact link formats (mailto, https)
-- custom `404.html` presence and routing
-- narrow mobile viewport sanity
+- project link structure, accessible naming, and decorative icon hiding
+- contact link formats (`mailto:`, `https`)
+- safe `rel` attributes on external links opened in new tabs
+- custom `404.html` presence, routing, and asset references
+- narrow mobile viewport sanity, including no horizontal overflow
 
 ## Deployment
 
@@ -121,7 +123,7 @@ The site is deployed through GitHub Actions to GitHub Pages.
 
 Deployment flow:
 
-1. push to `main`
+1. deployment is triggered manually through the GitHub Actions workflow
 2. GitHub Actions prepares a static Pages artifact
 3. GitHub Pages serves the portfolio
 
@@ -135,6 +137,10 @@ The visual system is pragmatic and engineering-focused:
 - stark contrast with subtle borders
 - monospace typography for technical accents and metadata
 - no shadows, gradients, or decorative noise
+
+## Temporary placeholders
+
+Public contact and profile links are intentionally kept as placeholders until the portfolio content and publishing flow are finalized.
 
 ## Notes on scope
 
