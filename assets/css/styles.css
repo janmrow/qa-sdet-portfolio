@@ -2,11 +2,11 @@
    Tokens
    ========================================================================== */
 :root {
-  --color-bg: #fdfdfc;
-  --color-text: #171717;
-  --color-text-muted: #666666;
-  --color-border: #e5e5e5;
-  --color-accent: #000000;
+  --color-bg: #f4f4f0;
+  --color-text: #1d1d1f;
+  --color-text-muted: #6e6e73;
+  --color-border: #d2d2d7;
+  --color-accent: #b84300;
   --color-surface: #ffffff;
 
   --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -62,7 +62,8 @@ a {
 }
 
 ::selection {
-  background: rgba(0, 0, 0, 0.15);
+  background: rgba(225, 82, 0, 0.15);
+  color: var(--color-accent);
 }
 
 /* ==========================================================================
@@ -85,16 +86,16 @@ main {
 h1,
 h2,
 h3 {
-  font-weight: 600;
   line-height: 1.2;
 }
 
 h1 {
-  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-size: clamp(1.75rem, 4.5vw, 2.5rem);
+  font-weight: 500;
   margin-bottom: var(--space-md);
-  max-width: 18ch;
-  letter-spacing: -0.04em;
-  color: var(--color-accent);
+  max-width: 20ch;
+  letter-spacing: -0.03em;
+  color: #2c2c2e;
 }
 
 h2 {
@@ -104,16 +105,19 @@ h2 {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-size: 0.85rem;
+  font-weight: 600;
   color: var(--color-text-muted);
 }
 
 h3 {
   font-size: 1.125rem;
-  letter-spacing: -0.02em;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .lead {
   font-size: 1.125rem;
+  line-height: 1.7;
   color: var(--color-text-muted);
   margin-bottom: var(--space-md);
   max-width: 38rem;
@@ -122,10 +126,11 @@ h3 {
 .eyebrow {
   font-family: var(--font-mono);
   font-size: 0.8rem;
+  font-weight: 600;
   text-transform: uppercase;
-  color: var(--color-text-muted);
+  color: var(--color-accent);
   margin-bottom: var(--space-sm);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
 }
 
 /* ==========================================================================
@@ -138,6 +143,7 @@ h3 {
   gap: 1.25rem;
   font-family: var(--font-mono);
   font-size: 0.85rem;
+  margin-top: 2.5rem;
 }
 
 .contact-links a {
@@ -160,7 +166,7 @@ h3 {
 /* Projects */
 .project-list {
   display: grid;
-  gap: 3rem;
+  gap: 3.5rem;
 }
 
 .project-item {
@@ -185,6 +191,14 @@ h3 {
   transition:
     color 0.2s ease,
     border-bottom-color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.repo-link span {
+  display: inline-block;
+  transition: transform 0.2s ease;
 }
 
 .repo-link:hover,
@@ -193,10 +207,16 @@ h3 {
   border-bottom: 1px dashed var(--color-accent);
 }
 
+.repo-link:hover span,
+.repo-link:focus-visible span {
+  transform: translateX(2px) translateY(-2px);
+}
+
 .project-item p {
   color: var(--color-text-muted);
   font-size: 0.95rem;
   max-width: 40rem;
+  line-height: 1.6;
 }
 
 /* Tech Tags */
@@ -204,16 +224,16 @@ h3 {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-top: 0.25rem;
+  margin-top: 0.5rem;
 }
 
 .tech-tags li {
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  padding: 0.2rem 0.5rem;
+  padding: 0.25rem 0.6rem;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: 3px;
+  border-radius: 4px;
   color: var(--color-text-muted);
   transition:
     border-color 0.2s ease,
@@ -221,8 +241,8 @@ h3 {
 }
 
 .tech-tags li:hover {
-  border-color: #cccccc;
-  color: var(--color-accent);
+  border-color: #a1a1a6;
+  color: var(--color-text);
 }
 
 /* Footer */
@@ -241,10 +261,11 @@ h3 {
   top: -3rem;
   left: 1rem;
   background: var(--color-accent);
-  color: var(--color-bg);
+  color: var(--color-surface);
   padding: 0.5rem 1rem;
   font-family: var(--font-mono);
   font-size: 0.85rem;
+  font-weight: 600;
   transition: top 0.2s ease;
   z-index: 100;
 }
@@ -259,6 +280,7 @@ h3 {
 a:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 4px;
+  border-radius: 1px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
