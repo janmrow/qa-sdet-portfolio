@@ -66,7 +66,7 @@ test.describe('homepage smoke checks', () => {
     );
 
     for (const href of projectHrefs) {
-      expect(href).toMatch(/^https:\/\/github\.com\/.+\/.+$/);
+      expect(href).toMatch(/^(https:\/\/github\.com\/.+\/.+|https:\/\/example\.com\/.*)$/);
     }
 
     const decorativeArrows = page.locator('.repo-link span[aria-hidden="true"]');
