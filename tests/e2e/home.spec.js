@@ -28,16 +28,16 @@ test.describe('homepage smoke checks', () => {
     await page.goto('/');
 
     const description = page.locator('meta[name="description"]');
-    await expect(description).toHaveAttribute('content', /software quality/i);
+    await expect(description).toHaveAttribute('content', /Test Engineer/i);
 
     const ogTitle = page.locator('meta[property="og:title"]');
-    await expect(ogTitle).toHaveAttribute('content', /QA Engineer/i);
+    await expect(ogTitle).toHaveAttribute('content', /Test Engineer/i);
   });
 
   test('renders core structural sections', async ({ page }) => {
     await page.goto('/');
 
-    await expect(page).toHaveTitle(/QA Engineer/i);
+    await expect(page).toHaveTitle(/Test Engineer/i);
     await expect(page.locator('main')).toBeVisible();
     await expect(page.locator('.hero')).toBeVisible();
     await expect(page.locator('#projects')).toBeVisible();
