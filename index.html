@@ -3,6 +3,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'; script-src 'none'; connect-src 'none';"
+    />
+
     <title>Test Engineer · Engineering · Software Quality</title>
     <meta
       name="description"
@@ -19,6 +25,23 @@
 
     <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="./assets/css/styles.css" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Your Name",
+        "jobTitle": "Test Engineer",
+        "url": "https://example.com/",
+        "sameAs": ["https://example.com/", "https://example.com/"],
+        "knowsAbout": [
+          "Software Testing",
+          "Test Automation",
+          "Continuous Integration",
+          "API Testing"
+        ]
+      }
+    </script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>

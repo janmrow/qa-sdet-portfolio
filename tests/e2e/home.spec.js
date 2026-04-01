@@ -155,3 +155,30 @@ test.describe('mobile smoke check', () => {
     await context.close();
   });
 });
+
+test('enforces strict Content-Security-Policy', async ({ page }) => {
+  await page.goto('/');
+
+  const cspMeta = page.locator('meta[http-equiv="Content-Security-Policy"]');
+  await expect(cspMeta).toHaveCount(1);
+
+  const cspContent = await cspMeta.getAttribute('content');
+  expect(cspContent).toContain("default-src 'none'");
+  expect(cspContent).toContain("script-src 'none'");
+});
+
+test('contains valid JSON-LD structured data for Person', async ({ page }) => {
+  await page.goto('/');
+
+  const scriptLocator = page.locator('script[type="application/ld+json"]');
+  await expect(scriptLocator).toHaveCount(1);
+
+  const scriptContent = await scriptLocator.textContent();
+
+  expect(() => JSON.parse(scriptContent)).not.toThrow();
+
+  const jsonData = JSON.parse(scriptContent);
+  expect(jsonData['@context']).toBe('https://schema.org');
+  expect(jsonData['@type']).toBe('Person');
+  expect(jsonData.jobTitle).toContain('Test Engineer');
+});
