@@ -1,156 +1,98 @@
 # QA Engineer Portfolio
 
-A brutally lightweight, static portfolio website for a QA Engineer / Test Engineer / SDET profile.
+[![CI](https://github.com/janmrow/qa-sdet-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/janmrow/qa-sdet-portfolio/actions/workflows/ci.yml)
+[![Link Checker](https://github.com/janmrow/qa-sdet-portfolio/actions/workflows/link-checker.yml/badge.svg)](https://github.com/janmrow/qa-sdet-portfolio/actions/workflows/link-checker.yml)
+[![Deploy to GitHub Pages](https://github.com/janmrow/qa-sdet-portfolio/actions/workflows/deploy.yml/badge.svg)](https://github.com/janmrow/qa-sdet-portfolio/actions/workflows/deploy.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-The project is intentionally small, framework-free, and contains **zero client-side JavaScript**. The goal is not to maximize features, but to communicate engineering judgment, quality thinking, and delivery discipline through both the site itself and the repository around it.
+A brutally lightweight, high-performance static portfolio designed with a **Zero-JS** philosophy.
 
-## Why this project exists
+This project serves as a live showcase of modern QA engineering practices. The goal is not to maximize features or over-engineer the frontend, but to communicate engineering judgment, quality thinking, and delivery discipline through the site itself and the repository that builds it.
 
-This repository is designed to signal a few things clearly:
+> **Architecture Principle:** "Extreme simplicity is not a limitation; it is the intended architecture." — [ADR 0001: Keep the portfolio static and Zero-JS](docs/adr/0001-static-and-zero-js.md)
 
-- high signal-to-noise ratio in communication
-- semantic HTML and readable, hand-written CSS
-- absolute zero client-side JavaScript overhead
-- lightweight quality tooling (ESLint, Prettier)
-- practical smoke coverage with Playwright
-- GitHub Pages-friendly delivery with minimal deployment complexity
+## 🏗 The SDET Approach: Quality as a Feature
 
-## Stack
+For a Test Engineer, _how_ a project is tested is just as important as _what_ it looks like. This repository implements a robust, multi-layered quality gate strategy without adding unnecessary weight.
 
-- HTML5
-- CSS3 (Vanilla, CSS Variables)
-- npm for local tooling
-- Prettier & ESLint (for config and test files)
-- Playwright
-- GitHub Actions
-- GitHub Pages
+### Automated Testing (Playwright)
 
-## Site structure
+The E2E suite goes far beyond simple UI smoke tests. It explicitly validates:
 
-The portfolio is a single-column static site stripped down to the essentials:
+- **Network & Console Integrity:** Fails on any hidden console errors or failed HTTP requests.
+- **Accessibility (a11y):** Automated WCAG 2.1 AA compliance audits using `@axe-core/playwright`.
+- **Security & SEO:** Strict Content-Security-Policy (CSP) enforcement, JSON-LD structured data validation, and Open Graph meta tags presence.
+- **Resilience:** Keyboard navigation routing (skip-links), secure `rel` attributes on external links, and mobile viewport sanity (no horizontal overflow).
 
-- Hero (Introduction & Contact)
-- Selected Projects (with inline tech stacks)
-- Footer
+### Static Analysis & CI/CD
 
-The repository also includes:
+- **Linting Pipeline:** Enforces standardized configurations using `ESLint` (JS), `Stylelint` (CSS), `HTMLHint` (Semantic HTML), and `Prettier`.
+- **Link Integrity:** A scheduled `Lychee` workflow actively monitors the codebase to prevent dead links and bit rot.
+- **Optimized CI:** Containerized GitHub Actions using the official Microsoft Playwright image with concurrency control and automated artifact retention.
 
-- custom `404.html`
-- SVG favicon
-- CI workflow
-- GitHub Pages deployment workflow
-- one lightweight ADR
+## 🛠 Tech Stack
 
-## Repository structure
+| Category            | Technologies                                     |
+| :------------------ | :----------------------------------------------- |
+| **Core**            | Semantic HTML5, Vanilla CSS3 (Custom Properties) |
+| **Testing**         | Playwright, axe-core                             |
+| **Static Analysis** | ESLint, Stylelint, HTMLHint, Prettier            |
+| **Infrastructure**  | GitHub Actions, GitHub Pages                     |
+| **Tooling**         | Node.js v22, npm                                 |
 
-```text
-.
-├── 404.html
-├── assets
-│   ├── css
-│   │   └── styles.css
-│   └── icons
-│       └── favicon.svg
-├── docs
-│   └── adr
-│       └── 0001-static-and-zero-js.md
-├── tests
-│   └── e2e
-│       └── home.spec.js
-├── .github
-│   └── workflows
-│       ├── ci.yml
-│       └── deploy.yml
-├── .editorconfig
-├── .gitignore
-├── .prettierrc
-├── eslint.config.cjs
-├── index.html
-├── package.json
-├── package-lock.json
-├── playwright.config.js
-└── README.md
-```
+## 🚀 Local Development
 
-## Local development
+The project requires zero build steps for the frontend. All tooling is isolated to local quality checks.
 
-Install dependencies:
+**Prerequisites:** Node.js (v22+) and Python 3.
 
 ```bash
+# 1. Clone and install dependencies
 npm install
+
+# 2. Install Playwright browsers
 npx playwright install chromium
-```
 
-Run a local static server:
-
-```bash
+# 3. Start the local static server
 npm run serve
 ```
 
-Open `http://localhost:4173` in your browser.
+The site will be available at `http://localhost:4173`.
 
-## Quality checks
+## 🧪 Running Quality Checks
 
-Run formatting, linting, and smoke tests:
+You can run the entire pipeline or specific parts of the test suite locally:
 
 ```bash
+# Run all quality gates (Formatting + Linting + E2E Tests)
 npm run check
-```
 
-Run only Playwright smoke tests:
-
-```bash
+# Run only Playwright smoke tests
 npm run test:e2e
+
+# Run Playwright tests in headed mode (visible browser)
+npm run test:e2e:headed
 ```
 
-## What the smoke tests cover
+## 📦 Repository Structure
 
-The Playwright suite keeps coverage intentionally lean. It checks:
+```text
+.
+├── .github/workflows/   # CI, Deploy, and Link Checker pipelines
+├── assets/              # Static assets (Vanilla CSS, SVG icons)
+├── docs/adr/            # Architecture Decision Records
+├── tests/e2e/           # Playwright smoke tests & A11y audits
+├── 404.html             # Custom error routing
+├── index.html           # Main semantic entry point
+├── playwright.config.js # E2E configuration & WebServer setup
+└── package.json         # Tooling dependencies & NPM scripts
+```
 
-- homepage load, title, and absence of console or failed-request errors
-- essential SEO and Open Graph meta tags
-- core sections visibility
-- keyboard access to the skip link
-- project link structure, accessible naming, and decorative icon hiding
-- contact link formats (`mailto:`, `https`)
-- safe `rel` attributes on external links opened in new tabs
-- custom `404.html` presence, routing, and asset references
-- narrow mobile viewport sanity, including no horizontal overflow
+## 🚢 Deployment
 
-## Deployment
+The site is hosted on **GitHub Pages**.
+To ensure controlled releases and prevent accidental deployments of breaking changes, the delivery is triggered manually via `workflow_dispatch` in the [Deploy workflow](.github/workflows/deploy.yml) only after the CI quality gates pass.
 
-The site is deployed through GitHub Actions to GitHub Pages.
+## 📄 License
 
-Deployment flow:
-
-1. deployment is triggered manually through the GitHub Actions workflow
-2. GitHub Actions prepares a static Pages artifact
-3. GitHub Pages serves the portfolio
-
-No production build step is required.
-
-## Design direction
-
-The visual system is pragmatic and engineering-focused:
-
-- single-column layout for high readability
-- stark contrast with subtle borders
-- monospace typography for technical accents and metadata
-- no shadows, gradients, or decorative noise
-
-## Temporary placeholders
-
-Public contact and profile links are intentionally kept as placeholders until the portfolio content and publishing flow are finalized.
-
-## Notes on scope
-
-This project deliberately does **not** include:
-
-- React or any front-end framework
-- client-side JavaScript
-- CMS features
-- backend contact form
-- heavy animation
-- design-system over-abstraction
-
-The intent is proportion, clarity, and maintainability.
+This project is open-source and available under the [MIT License](LICENSE).
