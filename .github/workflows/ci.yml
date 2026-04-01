@@ -18,6 +18,10 @@ jobs:
     container:
       image: mcr.microsoft.com/playwright:v1.58.2-noble
 
+    env:
+      HOME: /root
+      CI: true
+
     permissions:
       contents: read
 
@@ -36,11 +40,9 @@ jobs:
 
       - name: Run quality checks (Lint + E2E)
         run: npm run check
-        env:
-          CI: true
 
       - name: Upload Playwright report
-        if: (!cancelled() && !env.ACT)
+        if: always() && !env.ACT && !cancelled()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
