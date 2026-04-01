@@ -7,15 +7,12 @@
   --color-text-muted: #6e6e73;
   --color-border: #d2d2d7;
   --color-accent: #b84300;
-  --color-surface: #ffffff;
-
-  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --color-surface: #fff;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, blinkmacsystemfont, sans-serif;
   --font-mono:
-    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+    ui-monospace, sfmono-regular, menlo, monaco, consolas, 'Liberation Mono', 'Courier New',
     monospace;
-
   --content-width: 44rem;
-
   --space-xs: 0.5rem;
   --space-sm: 1rem;
   --space-md: 2rem;
@@ -33,14 +30,16 @@
 }
 
 body {
-  margin: 0;
   font-family: var(--font-sans);
   font-size: 1rem;
   line-height: 1.65;
   color: var(--color-text);
   background: var(--color-bg);
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
+  text-rendering: optimizelegibility;
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: var(--space-xl) 1.5rem var(--space-lg);
 }
 
 h1,
@@ -62,18 +61,13 @@ a {
 }
 
 ::selection {
-  background: rgba(225, 82, 0, 0.15);
+  background: rgb(225 82 0 / 15%);
   color: var(--color-accent);
 }
 
 /* ==========================================================================
    Layout
    ========================================================================== */
-body {
-  max-width: var(--content-width);
-  margin: 0 auto;
-  padding: var(--space-xl) 1.5rem var(--space-lg);
-}
 
 main {
   display: grid;
@@ -136,6 +130,7 @@ h3 {
 /* ==========================================================================
    Components
    ========================================================================== */
+
 /* Contact Links */
 .contact-links {
   display: flex;
@@ -154,6 +149,13 @@ h3 {
     color 0.2s ease,
     border-bottom-color 0.2s ease,
     border-bottom-style 0.2s ease;
+}
+
+/* Focus States Global */
+a:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+  border-radius: 1px;
 }
 
 .contact-links a:hover,
@@ -276,13 +278,6 @@ h3 {
   outline-offset: 2px;
 }
 
-/* Focus States Global */
-a:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 4px;
-  border-radius: 1px;
-}
-
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
@@ -292,7 +287,7 @@ a:focus-visible {
 /* ==========================================================================
    Media Queries
    ========================================================================== */
-@media (max-width: 40rem) {
+@media (width <= 40rem) {
   body {
     padding-top: var(--space-lg);
   }
