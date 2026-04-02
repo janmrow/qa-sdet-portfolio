@@ -13,6 +13,8 @@
     "lint": "npm run lint:js && npm run lint:css && npm run lint:html",
     "test:e2e": "playwright test",
     "test:e2e:headed": "playwright test --headed",
+    "test:visual": "playwright test tests/e2e/visual.spec.js",
+    "test:visual:update": "playwright test tests/e2e/visual.spec.js --update-snapshots",
     "check": "npm run format:check && npm run lint && npm run test:e2e",
     "prepare": "husky"
   },
