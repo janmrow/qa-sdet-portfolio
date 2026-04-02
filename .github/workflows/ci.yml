@@ -42,46 +42,49 @@ jobs:
         id: lint
         run: npm run lint
 
-      - name: Run Playwright E2E Tests
+      - name: Run Playwright E2E Tests (Logic)
         id: e2e
         if: success() || failure()
-        run: npm run test:e2e
+        # Runs everything EXCEPT tests with "Visual Regression" in the title
+        run: npx playwright test --grep-invert "Visual Regression"
+
+      - name: Run Playwright Visual Regression
+        id: visual
+        if: success() || failure()
+        # Runs ONLY the visual regression suite
+        run: npx playwright test --grep "Visual Regression"
 
       - name: Upload Playwright report
         if: (success() || failure()) && !env.ACT && !cancelled()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
-          path: playwright-report/
+          # Include 'test-results' to see actual vs. expected vs. diff images
+          path: |
+            playwright-report/
+            test-results/
           retention-days: 30
 
       - name: Generate Summary
         if: always()
         shell: bash
         run: |
-          LINT_OUTCOME="${{ steps.lint.outcome }}"
-          E2E_OUTCOME="${{ steps.e2e.outcome }}"
+          # Helper function for status icons
+          get_icon() {
+            if [[ "$1" == "success" ]]; then echo "✅ Pass";
+            elif [[ "$1" == "skipped" ]]; then echo "⏭️ Skipped";
+            else echo "❌ Fail"; fi
+          }
 
-          if [[ "$LINT_OUTCOME" == "success" ]]; then
-            LINT_STATUS="✅ Pass"
-          elif [[ "$LINT_OUTCOME" == "skipped" ]]; then
-            LINT_STATUS="⏭️ Skipped"
-          else
-            LINT_STATUS="❌ Fail"
-          fi
-
-          if [[ "$E2E_OUTCOME" == "success" ]]; then
-            E2E_STATUS="✅ Pass"
-          elif [[ "$E2E_OUTCOME" == "skipped" ]]; then
-            E2E_STATUS="⏭️ Skipped"
-          else
-            E2E_STATUS="❌ Fail"
-          fi
+          LINT_STATUS=$(get_icon "${{ steps.lint.outcome }}")
+          E2E_STATUS=$(get_icon "${{ steps.e2e.outcome }}")
+          VISUAL_STATUS=$(get_icon "${{ steps.visual.outcome }}")
 
           echo "### 🚀 Quality Gate Summary" >> $GITHUB_STEP_SUMMARY
           echo "| Check | Status |" >> $GITHUB_STEP_SUMMARY
           echo "|-------|--------|" >> $GITHUB_STEP_SUMMARY
           echo "| 🧹 Linting & Format | $LINT_STATUS |" >> $GITHUB_STEP_SUMMARY
-          echo "| 🎭 Playwright E2E | $E2E_STATUS |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🎭 Playwright E2E (Logic) | $E2E_STATUS |" >> $GITHUB_STEP_SUMMARY
+          echo "| 📸 Visual Regression | $VISUAL_STATUS |" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Check the artifacts for the full Playwright HTML report." >> $GITHUB_STEP_SUMMARY
+          echo "Download the **playwright-report** artifact to inspect visual diffs." >> $GITHUB_STEP_SUMMARY
