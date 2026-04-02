@@ -16,8 +16,8 @@
   --space-xs: 0.5rem;
   --space-sm: 1rem;
   --space-md: 2rem;
-  --space-lg: 4rem;
-  --space-xl: 6rem;
+  --space-lg: 3rem;
+  --space-xl: 4rem;
 }
 
 /* ==========================================================================
@@ -138,7 +138,7 @@ h3 {
   gap: 1.25rem;
   font-family: var(--font-mono);
   font-size: 0.85rem;
-  margin-top: 2.5rem;
+  margin-top: 1.5rem;
 }
 
 .contact-links a {
@@ -168,7 +168,7 @@ a:focus-visible {
 /* Projects */
 .project-list {
   display: grid;
-  gap: 3.5rem;
+  gap: 2.5rem;
 }
 
 .project-item {
