@@ -6,6 +6,7 @@ on:
   pull_request:
     branches: [main]
 
+# Prevents redundant builds by canceling previous runs on the same branch
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -15,6 +16,7 @@ jobs:
     timeout-minutes: 15
     runs-on: ubuntu-latest
 
+    # Using the official Playwright image ensures consistent rendering for visual tests
     container:
       image: mcr.microsoft.com/playwright:v1.58.2-noble
 
@@ -45,31 +47,37 @@ jobs:
       - name: Run Playwright E2E Tests (Logic)
         id: e2e
         if: success() || failure()
-        # Runs everything EXCEPT tests with "Visual Regression" in the title
+        # Isolates functional tests by excluding visual regression suite
         run: npx playwright test --grep-invert "Visual Regression"
 
       - name: Run Playwright Visual Regression
         id: visual
         if: success() || failure()
-        # Runs ONLY the visual regression suite
+        # Isolates visual tests using grep targeting the describe/test title
         run: npx playwright test --grep "Visual Regression"
 
-      - name: Upload Playwright report
+      - name: Run Lighthouse Performance Check
+        id: lhci
+        if: success() || failure()
+        # Executes Lighthouse audits based on .lighthouserc.json
+        run: npm run test:perf
+
+      - name: Upload Test Artifacts
+        # Upload results if any check fails to assist in debugging
         if: (success() || failure()) && !env.ACT && !cancelled()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
-          # Include 'test-results' to see actual vs. expected vs. diff images
           path: |
             playwright-report/
             test-results/
           retention-days: 30
 
-      - name: Generate Summary
+      - name: Generate Quality Gate Summary
         if: always()
         shell: bash
         run: |
-          # Helper function for status icons
+          # Helper function to map step outcomes to status icons
           get_icon() {
             if [[ "$1" == "success" ]]; then echo "✅ Pass";
             elif [[ "$1" == "skipped" ]]; then echo "⏭️ Skipped";
@@ -79,6 +87,7 @@ jobs:
           LINT_STATUS=$(get_icon "${{ steps.lint.outcome }}")
           E2E_STATUS=$(get_icon "${{ steps.e2e.outcome }}")
           VISUAL_STATUS=$(get_icon "${{ steps.visual.outcome }}")
+          LHCI_STATUS=$(get_icon "${{ steps.lhci.outcome }}")
 
           echo "### 🚀 Quality Gate Summary" >> $GITHUB_STEP_SUMMARY
           echo "| Check | Status |" >> $GITHUB_STEP_SUMMARY
@@ -86,5 +95,6 @@ jobs:
           echo "| 🧹 Linting & Format | $LINT_STATUS |" >> $GITHUB_STEP_SUMMARY
           echo "| 🎭 Playwright E2E (Logic) | $E2E_STATUS |" >> $GITHUB_STEP_SUMMARY
           echo "| 📸 Visual Regression | $VISUAL_STATUS |" >> $GITHUB_STEP_SUMMARY
+          echo "| ⚡ Lighthouse Performance | $LHCI_STATUS |" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Download the **playwright-report** artifact to inspect visual diffs." >> $GITHUB_STEP_SUMMARY
+          echo "💡 *Hint: Download 'playwright-report' from the Artifacts section to see visual diffs and performance scores.*" >> $GITHUB_STEP_SUMMARY
