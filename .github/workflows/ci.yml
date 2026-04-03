@@ -56,6 +56,8 @@ jobs:
         id: lhci
         if: success() || failure()
         run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
           # Ensure LHCI can find the browser by pointing to the Playwright executable
           export CHROME_PATH=$(node -e "console.log(require('@playwright/test').chromium.executablePath())")
           npm run test:perf
